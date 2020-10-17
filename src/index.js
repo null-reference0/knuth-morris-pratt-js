@@ -1,7 +1,7 @@
 const process = require('process');
 
 // @flow
-function kmp_search(pattern: string) {
+function KMPSearch(pattern: string) {
 	function preprocess() {
 		const failureArray = pattern
 			.split('')
@@ -69,7 +69,7 @@ function kmp_search(pattern: string) {
 function main() {
 	const args = process.argv.slice(2);
 	const [text, pattern] = args;
-	const searcher = kmp_search(pattern);
+	const searcher = KMPSearch(pattern);
 	const result = searcher.search(text);
 	console.log(result);
 }
