@@ -1,0 +1,13 @@
+[ignore]
+/dist/**
+
+[include]
+
+[libs]
+CommonJS
+
+[lints]
+
+[options]
+
+[strict]
