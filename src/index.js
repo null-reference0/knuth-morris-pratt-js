@@ -5,13 +5,13 @@ function kmp_search(pattern: string) {
 	function preprocess() {
 		const failureArray = pattern
 			.split('')
-			.reduce((prev, cur, index, pattern) => {
-				if (cur === pattern[prev[index - 1]]) {
-					prev.push(prev[index - 1] + 1);
+			.reduce((resArr, cur, index, pattern) => {
+				if (cur === pattern[resArr[index - 1]]) {
+					resArr.push(resArr[index - 1] + 1);
 				} else {
-					prev.push(index != 0 && cur === pattern[0] ? 1 : 0);
+					resArr.push(index != 0 && cur === pattern[0] ? 1 : 0);
 				}
-				return prev;
+				return resArr;
 			}, []);
 
 		const patternLength = pattern.length - 1;
@@ -22,7 +22,7 @@ function kmp_search(pattern: string) {
 
 		return (cur: string) => {
 			let res = {
-				matched: false,
+				fullyMatched: false,
 				beginIndex: -1,
 			};
 
@@ -38,7 +38,7 @@ function kmp_search(pattern: string) {
 				if (patternIndex === patternLength) {
 					patternIndex = 0;
 					res = {
-						matched: true,
+						fullyMatched: true,
 						beginIndex,
 					};
 				} else {
@@ -55,12 +55,12 @@ function kmp_search(pattern: string) {
 
 	return {
 		search: (text: string): number[] => {
-			return text.split('').reduce((prev, cur) => {
-				const { matched, beginIndex } = match(cur);
-				if (matched) {
-					prev.push(beginIndex);
+			return text.split('').reduce((indexes, cur) => {
+				const { fullyMatched, beginIndex } = match(cur);
+				if (fullyMatched) {
+					indexes.push(beginIndex);
 				}
-				return prev;
+				return indexes;
 			}, []);
 		},
 	};
